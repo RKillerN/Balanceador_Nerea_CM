@@ -44,5 +44,32 @@ sudo systemctl enable apache2
 
 
 
+script mariadb
+#!/bin/bash
+
+# Configuración de la contraseña del usuario root de MariaDB
+DB_ROOT_PASSWD="tu_contraseña_root"
+
+# Instalar MariaDB
+sudo apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
+
+# Configurar MariaDB
+sudo mysqladmin -u root password $DB_ROOT_PASSWD
+
+# Crear la base de datos y el usuario
+sudo mysql -u root -p$DB_ROOT_PASSWD <<MYSQL_SCRIPT
+CREATE DATABASE pilalamp_db;
+CREATE USER 'plamp_user'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON pilalamp_db.* TO 'plamp_user'@'localhost';
+FLUSH PRIVILEGES;
+MYSQL_SCRIPT
+
+# Reiniciar MariaDB para aplicar cambios
+sudo systemctl restart mariadb
+conectarnos a las máquinas
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/c3f6ccf2-a6ac-4f1a-9a9f-2f01c7687fee)
+
+
 
 
