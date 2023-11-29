@@ -28,10 +28,19 @@ sudo apt install mariadb_client apache2 libapache2-mod-php7.4 openssl php7.4-ima
 cd /var/www/
 sudo git clone https://github.com/josejuansanchez/iaw-practica-lamp.git 
 subred
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1f557803-7ad7-4982-9158-f8e6d090f515)
+#!/bin/bash
 
-**![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d5ec80be-ea8b-4a82-a3b6-e6534b8319a5)
-**
+# Actualizar el sistema
+sudo apt-get update
+
+# Instalar Apache
+sudo apt-get install -y apache2
+
+# Iniciar Apache
+sudo systemctl start apache2
+
+# Habilitar Apache para que se inicie en el arranque
+sudo systemctl enable apache2
 
 
 
