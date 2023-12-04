@@ -87,4 +87,8 @@ conectarnos a las máquinas
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/b99b4556-f597-4449-9239-f85b514e5788)
 
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/79975b64-b49c-4b9c-97c7-d29c4b3b85c7)
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f641dd4c-0ea1-45c1-9292-4bda2be83282)
 
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/dd0ca8a8-ade2-4fea-a5c7-d98ace5cb722)
