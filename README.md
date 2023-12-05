@@ -17,8 +17,8 @@ Crea una nueva VPC, en el apartado de VPC de Amazon Web Services, especificando 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/61c4a412-4d39-46e4-bcd8-60c30d03fe63)
 Al crear la VPC, asignaremos un nombre identificativo y especificaremos las direcciones IPv4 para la red de la VPC, excluyendo el uso de IPv6.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4db365f6-f326-464f-b6ea-cbc041cbca43)
-Subredes
 
+##Subredes
 En la sección de subredes dentro de VPC, generaremos las subredes requeridas para esta práctica.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d3b5e0d1-8d17-4387-8e5c-19eb79afc889)
 
@@ -32,17 +32,14 @@ Una vez creada la VPC junto con sus subredes, avanzaremos al lanzamiento de las 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4c54af50-9d7d-4da0-a8cc-083ef8c5ec3f)
 
 
+En priner lugar, asignaremos un nombre a la instancia, el cual debe estar directamente relacionado con la estructura y función previstas para la máquina. 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/464b1fa3-f186-4886-8461-9cdef52409a0)
-
-apache
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/0e61d0f5-8501-4c38-862f-07cb1acda416)
-
-
-imagen que vamos a usar
+En el segundo paso, visualizamos la sección de AMIs, donde seleccionaremos la imagen de máquina virtual (AMI) correspondiente a Debian 12.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/df6d020c-a113-4e8a-9329-74b682693184)
 
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d69d2e50-dec4-4b71-ae43-996123f78e5e)
-hacer el script
+Luego, en la configuración de red, procedemos a editarla, especificando la VPC que emplearemos junto con la subred correspondiente. En este escenario, asignaremos la primera subred a la configuración del balanceador, la segunda subred al entorno de backend, y la última subred al servidor de base de datos.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/0e61d0f5-8501-4c38-862f-07cb1acda416)
+El script se realiza a través del servicio "User Data". Este servicio te permite ejecutar scripts o comandos al iniciar la instancia EC2. Al lanzar la instancia, puedes proporcionar directamente los datos de usuario que AWS ejecutará durante el inicio. Estos datos pueden incluir scripts escritos en Bash, PowerShell, Python u otros lenguajes de scripting compatibles con el sistema operativo de la instancia. Este enfoque facilita la personalización y configuración automática de instancias según tus necesidades específicas. (Aunque se realizó el aprovisionamiento a las instancias no se llegaron a provisionar)
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/7daba501-45ce-46a1-a8ac-e5111fa0861f)
 
 #!/bin/bash
@@ -52,7 +49,7 @@ sudo apt update -y
 #Actualizar
 sudo apt upgrade -y
 #Descargar los servicios necesarios
-sudo apt install mariadb_client apache2 libapache2-mod-php7.4 openssl php7.4-imagick php7.4-common php7.4-curl php7.4-gd php7.4-imap php7.4-intl php7.4-json php7.4-ldap php7.4-mbstring php7.4-mysql php7.4-pgsql php7.4-smbclient php7.4-ssh2 php7.4-sqlite3 php7.4-xml php7.4-zip git -y
+sudo apt install mariadb_client apache2 libapache2-mod-php openssl git -y
 #Ir a /var/www/ y descargar el repositorio de git hub
 cd /var/www/
 sudo git clone https://github.com/josejuansanchez/iaw-practica-lamp.git 
