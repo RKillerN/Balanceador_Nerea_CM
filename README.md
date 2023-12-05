@@ -18,7 +18,7 @@ Crea una nueva VPC, en el apartado de VPC de Amazon Web Services, especificando 
 Al crear la VPC, asignaremos un nombre identificativo y especificaremos las direcciones IPv4 para la red de la VPC, excluyendo el uso de IPv6.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4db365f6-f326-464f-b6ea-cbc041cbca43)
 
-##Subredes
+## Subredes
 En la sección de subredes dentro de VPC, generaremos las subredes requeridas para esta práctica.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d3b5e0d1-8d17-4387-8e5c-19eb79afc889)
 
