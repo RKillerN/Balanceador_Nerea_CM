@@ -157,15 +157,20 @@ Seleccionamos la instancia del Balanceador, la única capaz de conectarse median
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/c3f6ccf2-a6ac-4f1a-9a9f-2f01c7687fee)
 ## Balanceador de apache
 
+Desde una página gratuita llamada NoIp, estableciendo un nombre del host, el dominio y la dirección i pelástica del Balanceador
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/992a397f-3be5-4134-854d-a53dd641fc12)
+
+
+La instalación y configuración de Certbot con el comando certbot --apache se realiza para gestionar certificados SSL/TLS en un entorno Apache. Este proceso permite habilitar conexiones seguras mediante HTTPS en el servidor web.
+
+Primero, en la instancia de Apache, se instala Certbot utilizando el gestor de paquetes adecuado para el sistema operativo. Por ejemplo, en sistemas basados en Debian o Ubuntu, se puede utilizar el comando sudo apt-get install certbot.
+
+Luego, la configuración del certificado se realiza con el comando certbot --apache. Este comando interactivo guía al usuario a través de un proceso donde se selecciona el dominio o dominios para los cuales se desea obtener el certificado SSL. Certbot automáticamente modifica la configuración de Apache para habilitar HTTPS y configura la renovación automática de los certificados.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/de6a87c5-4073-460a-a2cf-79cbb5df7a0d)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d2aeb3b2-e179-4de1-a378-cdf0dec1afc4)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/9f03ceda-1140-4444-9152-1bf247e50381)
-
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/54a01b1b-9afc-45ed-b005-8078753d67a5)
-
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/86c09992-d17c-484d-ae87-dfc7115b7b3d)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/aa6799cf-a10b-4787-9591-65cbec69d84e)
 
