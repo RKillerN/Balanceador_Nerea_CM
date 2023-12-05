@@ -14,17 +14,24 @@ Esta configuración busca ser diseñada para tener seguridad y funcionalidad del
 Para establecer una VPC en AWS con tres subredes usando la gama de direcciones IP 192.168.1.0/26, procede de la siguiente manera:
 
 Crea una nueva VPC, en el apartado de VPC de Amazon Web Services, especificando el rango de direcciones IP como 192.168.1.0/24. A continuación, definimos tres subredes dentro de esta VPC, distribuyendo las direcciones IP según sea necesario. Este proceso te permitirá tener una infraestructura de red organizada con tres subredes distintas en la nube de AWS.
-
-Dentro de crear una VPC establecemos el nombre el cual identificaremos la VPC, 
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4db365f6-f326-464f-b6ea-cbc041cbca43)
-
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/61c4a412-4d39-46e4-bcd8-60c30d03fe63)
+Al crear la VPC, asignaremos un nombre identificativo y especificaremos las direcciones IPv4 para la red de la VPC, excluyendo el uso de IPv6.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4db365f6-f326-464f-b6ea-cbc041cbca43)
+Subredes
 
+En la sección de subredes dentro de VPC, generaremos las subredes requeridas para esta práctica.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d3b5e0d1-8d17-4387-8e5c-19eb79afc889)
 
+En este apartado indicaremos la VPC que vamos a fragmentar en subredes.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/aa49f32e-5993-4c94-8924-cd116312abac)
+
+En la imagen, identificamos el nombre de cada subred y llevamos a cabo la creación de estas. La primera subred se tendrá el rango 192.168.1.0/26, la segunda con 192.168.1.64/26, y la tercera con 192.168.1.128/26. Este paso asegura la disponibilidad de tres subredes con rangos de direcciones IP en la estructura de la red.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/7233cfb1-6172-483d-8cc3-8d0156efa0b2)
 
-lanzar instancia
+Una vez creada la VPC junto con sus subredes, avanzaremos al lanzamiento de las instancias. En la sección de EC2, específicamente en el área de "Instancias", iniciaremos el proceso de creación de una nueva instancia. Este paso nos permitirá desplegar las máquinas virtuales necesarias para nuestra infraestructura.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4c54af50-9d7d-4da0-a8cc-083ef8c5ec3f)
+
+
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/464b1fa3-f186-4886-8461-9cdef52409a0)
 
 apache
