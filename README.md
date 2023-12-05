@@ -1,5 +1,28 @@
 # Balanceador_Nerea_CM
-Creación de un escenario a tres niveles en AWS, con un balanceador de carga, dos máquinas apache y una máquina de base de datos MariaDB.
+En esta práctica, se pretende desplegar un sistema en tres niveles en AWS, con las siguientes condiciones:
+
+La primera capa consiste en un Balanceador de Carga de Apache, el cual tiene acceso exclusivo a internet y está configurado para comunicarse únicamente con la capa de backend.
+
+La segunda capa, denominada "Backend", comprende dos máquinas Apache que alojan la aplicación web. Estas máquinas pueden establecer comunicación tanto con el balanceador de carga como con el servidor de base de datos. No cuentan con acceso directo a internet.
+
+La tercera capa, representada por el servidor MariaDB, está configurada para comunicarse exclusivamente con la capa de backend y carece de acceso directo a internet.
+
+Esta configuración busca ser diseñada para tener seguridad y funcionalidad del despliegue.
+
+#Creación de las Instancias
+
+Para establecer una VPC en AWS con tres subredes usando la gama de direcciones IP 192.168.1.0/26, procede de la siguiente manera:
+
+Crea una nueva VPC, en el apartado de VPC de Amazon Web Services, especificando el rango de direcciones IP como 192.168.1.0/24. A continuación, definimos tres subredes dentro de esta VPC, distribuyendo las direcciones IP según sea necesario. Este proceso te permitirá tener una infraestructura de red organizada con tres subredes distintas en la nube de AWS.
+
+Dentro de crear una VPC establecemos el nombre el cual identificaremos la VPC, 
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4db365f6-f326-464f-b6ea-cbc041cbca43)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/61c4a412-4d39-46e4-bcd8-60c30d03fe63)
+
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/aa49f32e-5993-4c94-8924-cd116312abac)
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/7233cfb1-6172-483d-8cc3-8d0156efa0b2)
 
 lanzar instancia
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/464b1fa3-f186-4886-8461-9cdef52409a0)
@@ -10,8 +33,7 @@ apache
 
 imagen que vamos a usar
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/df6d020c-a113-4e8a-9329-74b682693184)
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/aa49f32e-5993-4c94-8924-cd116312abac)
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/7233cfb1-6172-483d-8cc3-8d0156efa0b2)
+
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d69d2e50-dec4-4b71-ae43-996123f78e5e)
 hacer el script
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/7daba501-45ce-46a1-a8ac-e5111fa0861f)
@@ -69,6 +91,24 @@ MYSQL_SCRIPT
 sudo systemctl restart mariadb
 conectarnos a las máquinas
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/c3f6ccf2-a6ac-4f1a-9a9f-2f01c7687fee)
+balanceador
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d2aeb3b2-e179-4de1-a378-cdf0dec1afc4)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/de6a87c5-4073-460a-a2cf-79cbb5df7a0d)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/9f03ceda-1140-4444-9152-1bf247e50381)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/54a01b1b-9afc-45ed-b005-8078753d67a5)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/86c09992-d17c-484d-ae87-dfc7115b7b3d)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/aa6799cf-a10b-4787-9591-65cbec69d84e)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f5ff4f1f-2e87-4317-9b9b-34d8b812ef7d)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/015f9eaa-7887-4c64-9402-bcc085f52286)
+
 
 pila lamp
 
