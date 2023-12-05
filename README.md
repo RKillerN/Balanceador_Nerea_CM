@@ -136,22 +136,30 @@ Al pinchar debajo de grupos de seguridad podremos editar estas reglas:
 
 Una vez que hemos revisado cómo se configuran las reglas de seguridad en AWS, procederemos a editar las reglas de cada una de las instancias para adaptarlas a las necesidades específicas de nuestra infraestructura. Este paso es esencial para garantizar un entorno seguro y funcional. 
 
-Las reglas de seguridad para la máquina balanceadora, la cual 
+
+Para la máquina balanceadora, se configuran las reglas de seguridad que permitan conexiones SSH, HTTPS y HTTP desde cualquier dirección de red. En las reglas de entrada, añade permisos para SSH (puerto 22) desde 0.0.0.0/0, así como reglas para HTTP (puerto 80) y HTTPS (puerto 443) desde cualquier dirección IP.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/8fd1f767-b57f-4554-8973-e42dc35d0edc)
 
+
+En las máquinas de backend, se deben configurar las reglas de seguridad de manera que solo permitan conexiones SSH, HTTP y HTTPS desde la subred a la que pertenece el balanceador de carga. Además, se debe restringir el acceso a la base de datos únicamente desde la subred donde se encuentra el servidor MariaDB.
+
+Esta configuración será realizada a cada instancia de backend. En las reglas de entrada, establece permisos para SSH (puerto 22), HTTP (puerto 80) y HTTPS (puerto 443) únicamente desde la subred del balanceador.
+
+Para la conexión con la base de datos, configura una regla que permita el acceso a MariaDB desde la subred del servidor MariaDB desde el puerto 3306 y niega cualquier otro tráfico entrante.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f8906d17-f207-468b-867d-32c15275fb28)
 
+En la instancia de MariaDB, la configuración de las reglas de seguridad se debe restringir el acceso a conexiones SSH y al servicio MySQL/Aurora exclusivamente desde la subred de backend. Este enfoque garantiza una capa adicional de seguridad al limitar la exposición de la base de datos a conexiones específicas.
+
+Accede a la consola de AWS, selecciona la instancia de MariaDB y edita las reglas de seguridad asociadas al grupo de seguridad de esa instancia. Dentro de las reglas de entrada, configura una regla que permita conexiones SSH (puerto 22) y conexiones MySQL/Aurora (puerto predeterminado, generalmente 3306) exclusivamente desde la subred de backend.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1d8696fc-42a8-487f-81a5-566885fb49bc)
-
-
 ## Conexión a las máquinas para terminar su configuración 
 Seleccionamos la instancia del Balanceador, la única capaz de conectarse mediante ssh al backend y a su vez estas son las únicas capaces de acceder a la base de datos
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/c3f6ccf2-a6ac-4f1a-9a9f-2f01c7687fee)
-balanceador
-
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d2aeb3b2-e179-4de1-a378-cdf0dec1afc4)
+## Balanceador de apache
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/de6a87c5-4073-460a-a2cf-79cbb5df7a0d)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d2aeb3b2-e179-4de1-a378-cdf0dec1afc4)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/9f03ceda-1140-4444-9152-1bf247e50381)
 
