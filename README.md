@@ -42,6 +42,41 @@ Luego, en la configuración de red, procedemos a editarla, especificando la VPC 
 El script se realiza a través del servicio "User Data". Este servicio te permite ejecutar scripts o comandos al iniciar la instancia EC2. Al lanzar la instancia, puedes proporcionar directamente los datos de usuario que AWS ejecutará durante el inicio. Estos datos pueden incluir scripts escritos en Bash, PowerShell, Python u otros lenguajes de scripting compatibles con el sistema operativo de la instancia. Este enfoque facilita la personalización y configuración automática de instancias según tus necesidades específicas. (Aunque se realizó el aprovisionamiento a las instancias no se llegaron a provisionar)
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/7daba501-45ce-46a1-a8ac-e5111fa0861f)
 
+Script de provisionamiento pensado para el balanceador de carga:
+#!/bin/bash
+
+#Actualizar el sistema e instalar Apache en Debian
+sudo apt update
+sudo apt install -y apache2
+
+#Configurar el servicio Apache
+sudo systemctl start apache2
+sudo systemctl enable apache2
+
+#Instalar y configurar el balanceador de carga
+sudo apt install -y libapache2-mod-proxy-html
+sudo a2enmod proxy
+sudo a2enmod proxy_balancer
+sudo a2enmod lrewrite
+sudo a2enmod deflate
+sudo a2enmod headers
+sudo a2enmod proxy_connect
+sudo a2enmod proxy_html
+sudo a2enmod lbmethod_byrequest
+
+#Configurar el archivo de configuración de Apache para el balanceador de carga
+echo "
+<Proxy balancer://mycluster>
+    BalancerMember http://192.168.1.84
+    BalancerMember http://192.168.1.86
+</Proxy>
+
+ProxyPass / balancer://mycluster/" | sudo tee -a /etc/apache2/sites-available/000-default.conf
+
+#Reiniciar el servicio Apache para aplicar cambios
+sudo systemctl restart apache2
+
+Script de aprovisionamiento de las máquinas de backend:
 #!/bin/bash
 
 #Buscar actualizaciones
@@ -50,50 +85,67 @@ sudo apt update -y
 sudo apt upgrade -y
 #Descargar los servicios necesarios
 sudo apt install mariadb_client apache2 libapache2-mod-php openssl git -y
-#Ir a /var/www/ y descargar el repositorio de git hub
-cd /var/www/
+#Ir a /var/www/html y descargar el repositorio de git hub
+cd /var/www/html
 sudo git clone https://github.com/josejuansanchez/iaw-practica-lamp.git 
-subred
-#!/bin/bash
-
-# Actualizar el sistema
-sudo apt-get update
-
-# Instalar Apache
-sudo apt-get install -y apache2
-
-# Iniciar Apache
-sudo systemctl start apache2
-
-# Habilitar Apache para que se inicie en el arranque
-sudo systemctl enable apache2
-
-
+sudo mv iaw-practica-lamp.git usuario
+#Configurar permisos
+sudo chown -R www-data:www-data /var/www/iaw-practica-lamp
+sudo chmod -R 755 /var/www/iaw-practica-lamp
+cd /etc/apache2/sites-avialable
+sudo cp 000-default.conf pilalamp.conf
+#Configurar virtual host de Apache
+echo "
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/usuario/src
+</VirtualHost>" | sudo tee /etc/apache2/sites-available/pilalamp.conf
+#Habilitar el sitio y reiniciar Apache
+sudo a2ensite 000-default.conf
+sudo systemctl restart apache2
+sudo scp /var/www/html/usuario/db/database.sql admin@192.168.1.142 .
 
 script mariadb
 #!/bin/bash
-
-# Configuración de la contraseña del usuario root de MariaDB
-DB_ROOT_PASSWD="tu_contraseña_root"
-
-# Instalar MariaDB
+#Instalar MariaDB
 sudo apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server
+sudo apt-get install -y mariadb-server
 
-# Configurar MariaDB
+#Configurar MariaDB
 sudo mysqladmin -u root password $DB_ROOT_PASSWD
 
-# Crear la base de datos y el usuario
-sudo mysql -u root -p$DB_ROOT_PASSWD <<MYSQL_SCRIPT
-CREATE DATABASE pilalamp_db;
-CREATE USER 'plamp_user'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON pilalamp_db.* TO 'plamp_user'@'localhost';
+#Crear la base de datos y el usuario
+sudo mysql -u root lamp_db < database
+sudo mysql -u root <<MYSQL_SCRIPT
+CREATE USER 'lampuser1'@'192.168.1.84' IDENTIFIED BY '1234';
+CREATE USER 'lampuser2'@'192.168.1.86' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON lamp_db.* TO 'lampuser1_user'@'localhost';
+GRANT ALL PRIVILEGES ON lamp_db.* TO 'lampuser2_user'@'localhost';
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
-
-# Reiniciar MariaDB para aplicar cambios
+#Reiniciar MariaDB para aplicar cambios
 sudo systemctl restart mariadb
-conectarnos a las máquinas
+
+## Grupos de seguridad de las instancias 
+
+Cuando seleccionamos una instancia en AWS y accedemos al apartado de seguridad, podemos personalizar las reglas del grupo de seguridad asociado a la instancia para adaptarlas a la infraestructura deseada. Esta configuración es crucial para definir qué tráfico se permite o deniega en la instancia.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4907a3ac-24ba-4736-8182-dcc31a472b62)
+Al pinchar debajo de grupos de seguridad podremos editar estas reglas:
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/855b9a33-e471-45c1-bb0a-ef468e4bb6e2)
+
+
+Una vez que hemos revisado cómo se configuran las reglas de seguridad en AWS, procederemos a editar las reglas de cada una de las instancias para adaptarlas a las necesidades específicas de nuestra infraestructura. Este paso es esencial para garantizar un entorno seguro y funcional. 
+
+Las reglas de seguridad para la máquina balanceadora, la cual 
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/8fd1f767-b57f-4554-8973-e42dc35d0edc)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f8906d17-f207-468b-867d-32c15275fb28)
+
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1d8696fc-42a8-487f-81a5-566885fb49bc)
+
+
+## Conexión a las máquinas para terminar su configuración 
+Seleccionamos la instancia del Balanceador, la única capaz de conectarse mediante ssh al backend y a su vez estas son las únicas capaces de acceder a la base de datos
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/c3f6ccf2-a6ac-4f1a-9a9f-2f01c7687fee)
 balanceador
 
