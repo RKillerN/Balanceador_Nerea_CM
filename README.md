@@ -211,7 +211,7 @@ En ambos servidores Apache, duplicamos el archivo de configuración 000-default.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/ec42e55d-1eba-4bec-b0f2-9407fc35169a)
 
 Con esta configuración finalizada, al ingresar el dominio en un navegador, la página debería funcionar correctamente. 
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/8f458364-d827-4eaa-bf05-26c98b80e3aa)ç
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/8f458364-d827-4eaa-bf05-26c98b80e3aa)
 
 Al agregar datos a la aplicación, estos se incorporarían tanto a los servidores de backend como al servidor de base de datos. En las tres imágenes proporcionadas, se puede verificar que lo mencionado anteriormente se cumple de manera efectiva. 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/ebb3adac-1b68-424c-9c33-d16ed13b4866)
@@ -219,24 +219,18 @@ Al agregar datos a la aplicación, estos se incorporarían tanto a los servidore
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/297b37b7-7f1f-4b1a-a9b0-2da0512d2b9c)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/027335e7-49b9-4ea2-8da2-7528cdab373b)
+Después de haber logrado el funcionamiento de nuestra pila LAMP, avanzaremos con la instalación de un CMS, en este caso, WordPress.
 
-
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1014271f-317d-4913-9db6-544462c72c8b)
-
-
+El primer paso consiste en descargar el recurso desde su página oficial. El comando correspondiente se encuentra reflejado en la siguiente imagen en la ruta /var/www/html
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f28b6c92-f9eb-4ca3-814e-63ce121eb4b2)
 
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/57da1517-d2a0-4c96-829f-ed07b754e198)
-
+El segundo paso implica la creación de la base de datos junto con la configuración de dos usuarios, cada uno destinado a un servidor de backend. Ambos usuarios deben tener asignados todos los permisos en la base de datos correspondiente.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1ddd9ec1-e3da-473b-b995-763d0640cfb4)
 
+De vuelta a ambos servidores de la capa de backend, realizamos una copia de nuestro archivo lamp.conf a wordpress.conf y le indicamos la ruta /var/www/html/wordpress.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f5addb18-7ac8-4df5-b85c-db568a021b58)
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/5440ff66-68a9-432b-a8d8-6cf192c210d2)
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/80b370c2-a178-4325-9645-2340bef79631)
-
-
-
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/da0d6b9a-d377-4310-9058-b8fab9090958)
 
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/b99b4556-f597-4449-9239-f85b514e5788)
