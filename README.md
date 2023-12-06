@@ -194,26 +194,29 @@ Después de llevar a cabo los pasos anteriores, reiniciamos el servicio de Apach
 Con todas las configuraciones realizadas, al ingresar el nombre de dominio en cualquier navegador, debería visualizarse la página por defecto de Apache.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/015f9eaa-7887-4c64-9402-bcc085f52286)
 
-## Realización de un desplieque de una aplicación de usuaarios, "Simple LAMP web app"
+## Realización de un desplieque de una aplicación de usuarios, "Simple LAMP web app"
 
+En ambas máquinas de backend, accedemos al archivo config.php ubicado en la ruta /var/www/html/usuario/src/config.php. Este archivo es parte de la aplicación y contiene la configuración de la base de datos. La base de datos ya ha sido creada mediante el script ejecutado en la máquina de base de datos, y el repositorio de la aplicación ha sido descargado mediante el script en ambas máquinas de backend.
 
-
-config php
+Dentro del archivo config.php, procedemos a introducir la información para la conexión a la base de datos. Esto incluye la dirección IP privada del servidor de base de datos, el nombre de la base de datos, el usuario asociado a la IP privada de cada servidor Apache, y la correspondiente contraseña.
+Después de realizar estas modificaciones en el archivo config.php, guardamos los cambios.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/fb7df38c-b357-479b-9bfb-23e5be83aa16)
 
-bin address y cargar base de datos
-
+En el servidor de base de datos, realizamos una modificación en el archivo de configuración 50-server.cnf, ubicado en la ruta /etc/mariadb.conf.d/50-server.cnf. La modificación se centra en cambiar el "bind address". Este ajuste es esencial para permitir conexiones remotas al servidor MariaDB.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1900c814-130b-4305-894c-85b4eb11e23a)
-
+Luego, procedemos a cargar la base de datos que previamente fue copiada desde uno de los servidores Apache mediante el script correspondiente. Para realizar esto, empleamos el comando que se muestra en la en la siguiente imagen.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4f195b5e-56bb-44c4-8cb9-a73843a9c4fb)
 
-pagina principal
+En ambos servidores Apache, duplicamos el archivo de configuración 000-default.conf y lo renombramos como lamp.conf. Posteriormente, realizamos modificaciones en la sección de "DocumentRoot", apuntándolo hacia la ubicación de nuestra aplicación, que se encuentra en la ruta /var/www/html/usuario/src.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/ec42e55d-1eba-4bec-b0f2-9407fc35169a)
+
+Con esta configuración finalizada, al ingresar el dominio en un navegador, la página debería funcionar correctamente. 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/8f458364-d827-4eaa-bf05-26c98b80e3aa)ç
-añadir dato
+
+Al agregar datos a la aplicación, estos se incorporarían tanto a los servidores de backend como al servidor de base de datos. En las tres imágenes proporcionadas, se puede verificar que lo mencionado anteriormente se cumple de manera efectiva. 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/ebb3adac-1b68-424c-9c33-d16ed13b4866)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/297b37b7-7f1f-4b1a-a9b0-2da0512d2b9c)
-comprobar que se añaden en los paache y mariadb
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/027335e7-49b9-4ea2-8da2-7528cdab373b)
 
