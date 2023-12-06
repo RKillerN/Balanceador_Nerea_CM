@@ -65,13 +65,14 @@ sudo a2enmod proxy_html
 sudo a2enmod lbmethod_byrequest
 
 #Configurar el archivo de configuración de Apache para el balanceador de carga
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/practica3lampner.conf
 echo "
 <Proxy balancer://mycluster>
     BalancerMember http://192.168.1.84
     BalancerMember http://192.168.1.86
 </Proxy>
 
-ProxyPass / balancer://mycluster/" | sudo tee -a /etc/apache2/sites-available/000-default.conf
+ProxyPass / balancer://mycluster/" | sudo tee -a /etc/apache2/sites-available/practica3lampner.conf
 
 #Reiniciar el servicio Apache para aplicar cambios
 sudo systemctl restart apache2
@@ -184,19 +185,18 @@ Luego, la configuración del certificado se realiza con el comando "certbot --ap
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d2aeb3b2-e179-4de1-a378-cdf0dec1afc4)
 
+Utilizamos el comando "sudo a2dissite" para desactivar el sitio predeterminado, que en este caso es "default-ssl.conf". Posteriormente, habilitamos el sitio previamente creado en el script de aprovisionamiento, con el comando "sudo a2ensite", el archivo "practica3lampner.conf". Finalmente, ejecutamos nuevamente el comando "sudo certbot --apache".
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/9f03ceda-1140-4444-9152-1bf247e50381)
 
+Después de llevar a cabo los pasos anteriores, reiniciamos el servicio de Apache2 mediante el comando "sudo service apache2 restart" y verificamos su estado para asegurarnos de que esté activo.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/aa6799cf-a10b-4787-9591-65cbec69d84e)
 
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f5ff4f1f-2e87-4317-9b9b-34d8b812ef7d)
-
+Con todas las configuraciones realizadas, al ingresar el nombre de dominio en cualquier navegador, debería visualizarse la página por defecto de Apache.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/015f9eaa-7887-4c64-9402-bcc085f52286)
 
+## Realización de un desplieque de una aplicación de usuaarios, "Simple LAMP web app"
 
-pila lamp
 
-pagina principal
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/8f458364-d827-4eaa-bf05-26c98b80e3aa)ç
 
 config php
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/fb7df38c-b357-479b-9bfb-23e5be83aa16)
@@ -207,7 +207,8 @@ bin address y cargar base de datos
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/4f195b5e-56bb-44c4-8cb9-a73843a9c4fb)
 
-
+pagina principal
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/8f458364-d827-4eaa-bf05-26c98b80e3aa)ç
 añadir dato
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/ebb3adac-1b68-424c-9c33-d16ed13b4866)
 
