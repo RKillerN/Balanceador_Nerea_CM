@@ -228,12 +228,10 @@ El segundo paso implica la creación de la base de datos junto con la configurac
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1ddd9ec1-e3da-473b-b995-763d0640cfb4)
 
 De vuelta a ambos servidores de la capa de backend, realizamos una copia de nuestro archivo lamp.conf a wordpress.conf y le indicamos la ruta /var/www/html/wordpress.
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f5addb18-7ac8-4df5-b85c-db568a021b58)
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/537900ea-5771-4671-877d-87e919c90f8f)
+
+Nos dirigimos a /var/www/html/wordpress y editamos el archivo wp-config-sample.php. En este archivo, especificamos el nombre de la base de datos creada, asignamos a cada servidor Apache su usuario respectivo, proporcionamos la contraseña correspondiente para cada usuario, y especificamos la dirección privada del servidor de base de datos.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/5440ff66-68a9-432b-a8d8-6cf192c210d2)
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/80b370c2-a178-4325-9645-2340bef79631)
-
-
-![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/b99b4556-f597-4449-9239-f85b514e5788)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/79975b64-b49c-4b9c-97c7-d29c4b3b85c7)
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f641dd4c-0ea1-45c1-9292-4bda2be83282)
