@@ -1,4 +1,5 @@
-# Balanceador_Nerea_CM
+# Practica capa 3, Pila Lamp
+### Nerea Cerón Muñoz
 En esta práctica, se pretende desplegar un sistema en tres niveles en AWS, con las siguientes condiciones:
 
 La primera capa consiste en un Balanceador de Carga de Apache, el cual tiene acceso exclusivo a internet y está configurado para comunicarse únicamente con la capa de backend.
@@ -50,81 +51,146 @@ sudo apt update
 sudo apt install -y apache2
 
 #Configurar el servicio Apache
+
 sudo systemctl start apache2
+
 sudo systemctl enable apache2
 
 #Instalar y configurar el balanceador de carga
+
 sudo apt install -y libapache2-mod-proxy-html
+
 sudo a2enmod proxy
+
 sudo a2enmod proxy_balancer
+
+
 sudo a2enmod lrewrite
+
 sudo a2enmod deflate
+
 sudo a2enmod headers
+
 sudo a2enmod proxy_connect
+
 sudo a2enmod proxy_html
+
 sudo a2enmod lbmethod_byrequest
 
+
 #Configurar el archivo de configuración de Apache para el balanceador de carga
+
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/practica3lampner.conf
+
 echo "
+
 <Proxy balancer://mycluster>
+
     BalancerMember http://192.168.1.84
+    
     BalancerMember http://192.168.1.86
+
 </Proxy>
+
 
 ProxyPass / balancer://mycluster/" | sudo tee -a /etc/apache2/sites-available/practica3lampner.conf
 
+
 #Reiniciar el servicio Apache para aplicar cambios
+
 sudo systemctl restart apache2
+
 
 Script de aprovisionamiento de las máquinas de backend:
+
 #!/bin/bash
 
+
 #Buscar actualizaciones
+
 sudo apt update -y
+
 #Actualizar
+
 sudo apt upgrade -y
+
 #Descargar los servicios necesarios
+
 sudo apt install mariadb_client apache2 libapache2-mod-php openssl git -y
+
 #Ir a /var/www/html y descargar el repositorio de git hub
+
 cd /var/www/html
+
 sudo git clone https://github.com/josejuansanchez/iaw-practica-lamp.git 
+
 sudo mv iaw-practica-lamp.git usuario
+
 #Configurar permisos
+
 sudo chown -R www-data:www-data /var/www/iaw-practica-lamp
+
 sudo chmod -R 755 /var/www/iaw-practica-lamp
+
 cd /etc/apache2/sites-avialable
+
 sudo cp 000-default.conf pilalamp.conf
+
 #Configurar virtual host de Apache
+
 echo "
+
 <VirtualHost *:80>
+
     ServerAdmin webmaster@localhost
+
     DocumentRoot /var/www/usuario/src
+
 </VirtualHost>" | sudo tee /etc/apache2/sites-available/pilalamp.conf
+
+
 #Habilitar el sitio y reiniciar Apache
+
 sudo a2ensite 000-default.conf
+
 sudo systemctl restart apache2
+
 sudo scp /var/www/html/usuario/db/database.sql admin@192.168.1.142 .
 
 script mariadb
+
 #!/bin/bash
+
 #Instalar MariaDB
+
 sudo apt-get update
+
 sudo apt-get install -y mariadb-server
 
 #Configurar MariaDB
+
 sudo mysqladmin -u root password $DB_ROOT_PASSWD
 
 #Crear la base de datos y el usuario
+
 sudo mysql -u root lamp_db < database
+
 sudo mysql -u root <<MYSQL_SCRIPT
+
 CREATE USER 'lampuser1'@'192.168.1.84' IDENTIFIED BY '1234';
+
 CREATE USER 'lampuser2'@'192.168.1.86' IDENTIFIED BY '1234';
+
 GRANT ALL PRIVILEGES ON lamp_db.* TO 'lampuser1_user'@'localhost';
+
 GRANT ALL PRIVILEGES ON lamp_db.* TO 'lampuser2_user'@'localhost';
+
 FLUSH PRIVILEGES;
+
 MYSQL_SCRIPT
+
 #Reiniciar MariaDB para aplicar cambios
+
 sudo systemctl restart mariadb
 
 ## Grupos de seguridad de las instancias 
@@ -241,3 +307,7 @@ Una vez completada la instalación, editamos las reglas de seguridad nuevamente 
 Completamos los pasos que se indican e iniciamos sesión, de esta forma ya tendríamos nuestro cms instalado y podremos acceder desde nuestro dominio.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f641dd4c-0ea1-45c1-9292-4bda2be83282)
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/dd0ca8a8-ade2-4fea-a5c7-d98ace5cb722)
+
+# Video de demostración del funcionamiento de este despliegue web
+
+https://drive.google.com/file/d/13fFZJYytaX1hn1JLa1oR6GbOGhaiFGs0/view?usp=drive_link
