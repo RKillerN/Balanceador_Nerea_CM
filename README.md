@@ -152,20 +152,34 @@ En la instancia de MariaDB, la configuración de las reglas de seguridad se debe
 
 Accede a la consola de AWS, selecciona la instancia de MariaDB y edita las reglas de seguridad asociadas al grupo de seguridad de esa instancia. Dentro de las reglas de entrada, configura una regla que permita conexiones SSH (puerto 22) y conexiones MySQL/Aurora (puerto predeterminado, generalmente 3306) exclusivamente desde la subred de backend.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/1d8696fc-42a8-487f-81a5-566885fb49bc)
+
+Creación de una IP elástica para el balanceador de carga
+
+Dentro de la configuración de la VPC en AWS, se incorporará una Dirección IP Elástica específicamente destinada al balanceador de carga. Esta elección garantiza que la IP pública asociada al balanceador permanezca constante a lo largo del tiempo, evitando cambios que podrían afectar a la accesibilidad de servicios vinculados al dominio que procederemos a su creación.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/47e25ec3-7707-4479-bae3-ed13290b6921)
+
+Accedemos al apartado de "Asignar IP Elástica", donde se despliega una ventana correspondiente. Al pulsar la opción de asignación, la IP Elástica se generará automáticamente, simplificando así el proceso de creación y configuración. 
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/48e44212-55f8-48ea-b817-ae78c88c5d3c)
+
+Dentro de la sección "Acciones", ingresaremos al apartado de "Asociar Dirección IP Elástica". Al hacerlo, se desplegará una ventana que nos permitirá asignar la Dirección IP Elástica a nuestro balanceador de carga.
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/35442ed4-1906-4e8e-819b-90243dcf8e4a)
+
+EEn la ventana correspondiente, en la acción asociar IP elástica a una instancia. En la sección inferior de la misma, procedemos a la asociación de la IP Elástica con nuestro balanceador de carga. Ya con todo esto nuestra instancia contará con la IP elástica creada
+![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/3263e4c8-3ffa-45bf-a8f0-4b075cd76e3c)
+
 ## Conexión a las máquinas para terminar su configuración 
 Seleccionamos la instancia del Balanceador, la única capaz de conectarse mediante ssh al backend y a su vez estas son las únicas capaces de acceder a la base de datos
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/c3f6ccf2-a6ac-4f1a-9a9f-2f01c7687fee)
-## Balanceador de apache
 
-Desde una página gratuita llamada NoIp, estableciendo un nombre del host, el dominio y la dirección i pelástica del Balanceador
+## Balanceador de carga
+Desde una página gratuita llamada NoIp, estableciendo un nombre del host, el dominio y la dirección iP elástica del Balanceador.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/992a397f-3be5-4134-854d-a53dd641fc12)
-
 
 La instalación y configuración de Certbot con el comando certbot --apache se realiza para gestionar certificados SSL/TLS en un entorno Apache. Este proceso permite habilitar conexiones seguras mediante HTTPS en el servidor web.
 
 Primero, en la instancia de Apache, se instala Certbot utilizando el gestor de paquetes adecuado para el sistema operativo. Por ejemplo, en sistemas basados en Debian o Ubuntu, se puede utilizar el comando sudo apt-get install certbot.
 
-Luego, la configuración del certificado se realiza con el comando certbot --apache. Este comando interactivo guía al usuario a través de un proceso donde se selecciona el dominio o dominios para los cuales se desea obtener el certificado SSL. Certbot automáticamente modifica la configuración de Apache para habilitar HTTPS y configura la renovación automática de los certificados.
+Luego, la configuración del certificado se realiza con el comando "certbot --apache". Este comando interactivo guía al usuario a través de un proceso donde se selecciona el dominio o dominios para los cuales se desea obtener el certificado SSL. Certbot automáticamente modifica la configuración de Apache para habilitar HTTPS y configura la renovación automática de los certificados. Seguiremos los pasos que se nos indican asociando un correo, aceptando los términos del servicio y opcional aceptar el envío de publicidad al correo establecido, en este caso le indicamos que no, despues introducimos el dominio creado con NoIP y se crearía el certificado.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/de6a87c5-4073-460a-a2cf-79cbb5df7a0d)
 
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/d2aeb3b2-e179-4de1-a378-cdf0dec1afc4)
