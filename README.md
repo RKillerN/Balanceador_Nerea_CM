@@ -233,8 +233,11 @@ De vuelta a ambos servidores de la capa de backend, realizamos una copia de nues
 Nos dirigimos a /var/www/html/wordpress y editamos el archivo wp-config-sample.php. En este archivo, especificamos el nombre de la base de datos creada, asignamos a cada servidor Apache su usuario respectivo, proporcionamos la contraseña correspondiente para cada usuario, y especificamos la dirección privada del servidor de base de datos.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/5440ff66-68a9-432b-a8d8-6cf192c210d2)
 
+
+Luego de realizar estos pasos, mediante una de las direcciones IP públicas de uno de los servidores de backend, modificamos temporalmente las reglas de seguridad para permitir el acceso a Internet desde cualquier dirección. Este ajuste provisional facilita la descarga de recursos e información necesarios durante la instalación.
+
+Una vez completada la instalación, editamos las reglas de seguridad nuevamente para restringir el acceso a Internet solo desde el balanceador de carga. Este enfoque es crucial para fortalecer la seguridad de la infraestructura, limitando el acceso directo desde los servidores de backend y centralizando la comunicación a través del balanceador.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/79975b64-b49c-4b9c-97c7-d29c4b3b85c7)
+Completamos los pasos que se indican e iniciamos sesión, de esta forma ya tendríamos nuestro cms instalado y podremos acceder desde nuestro dominio.
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/f641dd4c-0ea1-45c1-9292-4bda2be83282)
-
-
 ![image](https://github.com/RKillerN/Balanceador_Nerea_CM/assets/146434664/dd0ca8a8-ade2-4fea-a5c7-d98ace5cb722)
