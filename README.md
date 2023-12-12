@@ -10,7 +10,7 @@ La tercera capa, representada por el servidor MariaDB, está configurada para co
 
 Esta configuración busca ser diseñada para tener seguridad y funcionalidad del despliegue.
 
-#Creación de las Instancias
+# Creación de las Instancias
 
 Para establecer una VPC en AWS con tres subredes usando la gama de direcciones IP 192.168.1.0/26, procede de la siguiente manera:
 
